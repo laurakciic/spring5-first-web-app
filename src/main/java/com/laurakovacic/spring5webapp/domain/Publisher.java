@@ -1,11 +1,10 @@
 package com.laurakovacic.spring5webapp.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Publisher {
@@ -19,7 +18,27 @@ public class Publisher {
     private String state;
     private String zip;
 
+    @OneToMany  // publisher is one and has many books
+    @JoinColumn(name = "publisher_id")          // foreign key publisher_id to the Book entity
+    private Set<Book> books = new HashSet<>();
+
     public Publisher() {
+    }
+
+    public Set<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(Set<Book> books) {
+        this.books = books;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
